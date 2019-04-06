@@ -8,22 +8,22 @@ const NODE_SIZE = 20,
       X_SPREAD = 4;
       Y_MARGIN = 40;
 
-function Leaf(value) {
+function Node(value) {
     this.value = value;
     this.leftChild = null;
     this.rightChild = null;
-    this.addLeaf = function(leaf) {
-        if (leaf.value < this.value) {
+    this.addNode = function(node) {
+        if (node.value < this.value) {
             if (this.leftChild === null) {
-                this.leftChild = leaf;
+                this.leftChild = node;
             } else {
-                this.leftChild.addLeaf(leaf);
+                this.leftChild.addNode(node);
             }
-        } else if (leaf.value >= this.value) {
+        } else if (node.value >= this.value) {
             if (this.rightChild === null) {
-                this.rightChild = leaf;
+                this.rightChild = node;
             } else {
-                this.rightChild.addLeaf(leaf);
+                this.rightChild.addNode(node);
             }
         }
     };
@@ -64,9 +64,9 @@ function Tree() {
     this.root = null;
     this.insert = function(value) {
         if (this.root === null) {
-            this.root = new Leaf(value);
+            this.root = new Node(value);
         } else {
-            this.root.addLeaf(new Leaf(value));
+            this.root.addNode(new Node(value));
         }
     };
 }
