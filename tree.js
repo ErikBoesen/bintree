@@ -26,6 +26,8 @@ function Leaf(value) {
     };
     this.draw = function(x, y, spread) {
         ctx.fillRect(x - NODE_SIZE / 2, y, NODE_SIZE, NODE_SIZE);
+        if (this.leftChild)   this.leftChild.draw(x - spread, y + 40, spread / 2);
+        if (this.rightChild) this.rightChild.draw(x + spread, y + 40, spread / 2);
     }
 }
 function Tree() {
