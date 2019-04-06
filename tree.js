@@ -58,7 +58,7 @@ function Node(value) {
             this.height = Math.max(leftHeight, rightHeight);
         }
         return this.height;
-    }
+    };
 }
 function Tree() {
     this.root = null;
@@ -69,6 +69,13 @@ function Tree() {
             this.root.addNode(new Node(value));
         }
     };
+    this.draw = function() {
+        if (this.root) {
+            this.root.calculateHeight();
+            this.root.draw(parseInt(window.innerWidth / 2), 20);
+            ctx.stroke();
+        }
+    };
 }
 
 var tree = new Tree();
@@ -76,11 +83,4 @@ for (i = 0; i < 50; i++) {
     tree.insert(Math.floor(Math.random() * 100));
 }
 
-function draw(tree) {
-    if (tree.root) {
-        console.log(tree.root.calculateHeight());
-        tree.root.draw(parseInt(window.innerWidth / 2), 20);
-        ctx.stroke();
-    }
-}
-draw(tree);
+tree.draw();
