@@ -3,7 +3,10 @@ canvas.height = window.innerHeight;
 canvas.width  = window.innerWidth;
 var ctx = canvas.getContext('2d');
 ctx.fillStyle = 'white';
-const NODE_SIZE = 30;
+ctx.strokeStyle = 'white';
+const NODE_SIZE = 30,
+      X_SPREAD = 40;
+      Y_MARGIN = 40;
 
 function Leaf(value) {
     this.value = value;
@@ -24,13 +27,32 @@ function Leaf(value) {
             }
         }
     };
-    this.draw = function(x, y, spread) {
+    this.draw = function(x, y) {
+        if (this.leftChild) {
+            ctx.fillStyle = 'white';
+            ctx.moveTo(x, y);
+            ctx.lineTo(x - spread, y + Y_MARGIN);
+            this.leftChild.draw(x - this.height * X_SPREAD, y + Y_MARGIN);
+        }
+        if (this.rightChild) {
+            ctx.fillStyle = 'white';
+            ctx.moveTo(x, y);
+            ctx.lineTo(x + spread, y + Y_MARGIN);
+            this.rightChild.draw(x + this.height * X_SPREAD, y + 40);
+        }
         ctx.fillStyle = 'white';
         ctx.fillRect(x - NODE_SIZE / 2, y, NODE_SIZE, NODE_SIZE);
         ctx.fillStyle = '#333';
         ctx.fillText(this.value, x, y + 10);
-        if (this.leftChild)   this.leftChild.draw(x - spread, y + 40, spread / 2);
-        if (this.rightChild) this.rightChild.draw(x + spread, y + 40, spread / 2);
+    };
+    this.height = null;
+    this.calculateHeight = function() {
+        if (!this.height) {
+            leftHeight = this.leftChild ? this.leftChild.calculateHeight() + 1 : 0;
+            rightHeight = this.rightChild ? this.rightChild.calculateHeight() + 1 : 0;
+            this.height = Math.max(leftHeight, rightHeight);
+        }
+        return this.height;
     }
 }
 function Tree() {
@@ -45,13 +67,15 @@ function Tree() {
 }
 
 var tree = new Tree();
-tree.insert(3);
-tree.insert(44);
-tree.insert(32);
+for (i = 0; i < 100; i++) {
+    tree.insert(Math.floor(Math.random() * 100));
+}
 
 function draw(tree) {
     if (!tree.root) {
     }
-    tree.root.draw(parseInt(window.innerWidth / 2), 20, 40);
+    tree.root.calculateHeight();
+    tree.root.draw(parseInt(window.innerWidth / 2), 20);
+    ctx.stroke();
 }
 draw(tree);
