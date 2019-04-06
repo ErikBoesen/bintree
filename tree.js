@@ -5,7 +5,7 @@ var ctx = canvas.getContext('2d');
 ctx.fillStyle = 'white';
 ctx.strokeStyle = 'white';
 const NODE_SIZE = 30,
-      X_SPREAD = 40;
+      X_SPREAD = 20;
       Y_MARGIN = 40;
 
 function Leaf(value) {
@@ -31,14 +31,18 @@ function Leaf(value) {
         if (this.leftChild) {
             ctx.fillStyle = 'white';
             ctx.moveTo(x, y);
-            ctx.lineTo(x - spread, y + Y_MARGIN);
-            this.leftChild.draw(x - this.height * X_SPREAD, y + Y_MARGIN);
+            endX = x - this.height * X_SPREAD;
+            endY = y + Y_MARGIN;
+            ctx.lineTo(endX, endY);
+            this.leftChild.draw(endX, endY);
         }
         if (this.rightChild) {
             ctx.fillStyle = 'white';
             ctx.moveTo(x, y);
-            ctx.lineTo(x + spread, y + Y_MARGIN);
-            this.rightChild.draw(x + this.height * X_SPREAD, y + 40);
+            endX = x + this.height * X_SPREAD;
+            endY = y + Y_MARGIN;
+            ctx.lineTo(endX, endY);
+            this.rightChild.draw(endX, endY);
         }
         ctx.fillStyle = 'white';
         ctx.fillRect(x - NODE_SIZE / 2, y, NODE_SIZE, NODE_SIZE);
