@@ -30,18 +30,18 @@ function Node(value) {
     this.draw = function(x, y) {
         if (this.leftChild) {
             ctx.fillStyle = 'white';
-            ctx.moveTo(x, y);
-            endX = x - this.height * Math.pow(2, X_SPREAD);
+            ctx.moveTo(x, y + NODE_SIZE / 2);
+            endX = x - this.height * Math.pow(X_SPREAD, 2);
             endY = y + Y_MARGIN;
-            ctx.lineTo(endX, endY);
+            ctx.lineTo(endX, endY + NODE_SIZE / 2);
             this.leftChild.draw(endX, endY);
         }
         if (this.rightChild) {
             ctx.fillStyle = 'white';
-            ctx.moveTo(x, y);
-            endX = x + this.height * Math.pow(2, X_SPREAD);
+            ctx.moveTo(x, y + NODE_SIZE / 2);
+            endX = x + this.height * Math.pow(X_SPREAD, 2);
             endY = y + Y_MARGIN;
-            ctx.lineTo(endX, endY);
+            ctx.lineTo(endX, endY + NODE_SIZE / 2);
             this.rightChild.draw(endX, endY);
         }
         ctx.fillStyle = 'white';
