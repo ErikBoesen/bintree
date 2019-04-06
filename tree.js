@@ -2,6 +2,8 @@ var canvas = document.getElementById('canvas');
 canvas.height = window.innerHeight;
 canvas.width  = window.innerWidth;
 var ctx = canvas.getContext('2d');
+ctx.fillStyle = 'white';
+const NODE_SIZE = 30;
 
 function Leaf(value) {
     this.value = value;
@@ -22,6 +24,9 @@ function Leaf(value) {
             }
         }
     };
+    this.draw = function(x, y, spread) {
+        ctx.fillRect(x - NODE_SIZE / 2, y, NODE_SIZE, NODE_SIZE);
+    }
 }
 function Tree() {
     this.root = null;
@@ -40,7 +45,8 @@ tree.insert(44);
 tree.insert(32);
 
 function draw(tree) {
-    if (tree.root) {
-
+    if (!tree.root) {
     }
+    tree.root.draw(parseInt(window.innerWidth / 2), 20, 40);
 }
+draw(tree);
