@@ -77,10 +77,10 @@ for (i = 0; i < 50; i++) {
 }
 
 function draw(tree) {
-    if (!tree.root) {
+    if (tree.root) {
+        console.log(tree.root.calculateHeight());
+        tree.root.draw(parseInt(window.innerWidth / 2), 20);
+        ctx.stroke();
     }
-    console.log(tree.root.calculateHeight());
-    tree.root.draw(parseInt(window.innerWidth / 2), 20);
-    ctx.stroke();
 }
 draw(tree);
