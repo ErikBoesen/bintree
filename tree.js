@@ -4,6 +4,8 @@ canvas.width  = window.innerWidth;
 var ctx = canvas.getContext('2d');
 ctx.fillStyle = 'white';
 ctx.strokeStyle = 'white';
+ctx.textAlign = 'center';
+ctx.font = '30px Arial';
 const NODE_SIZE = 20,
       X_SPREAD = 4;
       Y_MARGIN = 40;
@@ -57,6 +59,7 @@ function Node(value) {
             rightHeight = this.rightChild ? (this.rightChild.calculateHeight() + 1) : 0;
             this.height = Math.max(leftHeight, rightHeight);
         }
+        console.log(leftHeight, rightHeight, this.height, this.value);
         return this.height;
     };
 }
